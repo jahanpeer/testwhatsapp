@@ -35,9 +35,7 @@
           if (fallbackURL) {
             fallbackURL = fallbackURL.trim();
 
-            if (!fallbackURL.startsWith('https://')) {
-              fallbackURL = 'https://' + fallbackURL;
-            }
+           
 
             if (!fallbackURL.includes(whatsappGroupLink)) {
               fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
