@@ -48,7 +48,7 @@
     <p>If "Failed to get group info" is displayed, click again in WhatsApp.</p>
   </div>
 
-  <script type="text/javascript">
+ <script type="text/javascript">
   document.getElementById('whatsappGroupButton').onclick = function () {
     function getParameterByName(name, url = window.location.href) {
       name = name.replace(/[\[\]]/g, '\\$&');
@@ -75,7 +75,7 @@
 
       // Open the fallbackURL after a delay of 3000 milliseconds (3 seconds)
       setTimeout(function () {
-        window.location.href = fallbackURL;
+        window.location.assign(fallbackURL);
       }, 3000);
     }
   };
