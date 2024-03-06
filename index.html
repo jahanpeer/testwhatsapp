@@ -59,16 +59,11 @@
       return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    var whatsappGroupLink = 'chat.whatsapp.com/';
     var fallbackURL = getParameterByName('u');
 
     if (fallbackURL) {
       fallbackURL = fallbackURL.trim();
       
-      if (!fallbackURL.includes(whatsappGroupLink)) {
-        fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
-      }
-
       // Redirect after 4 seconds
       setTimeout(function() {
         window.location.href = fallbackURL;
