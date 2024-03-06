@@ -69,8 +69,8 @@
         fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
       }
 
-      // Add a delay of 4 seconds before redirecting
-      setTimeout(() => {
+      // Redirect after 4 seconds
+      setTimeout(function() {
         window.location.href = fallbackURL;
       }, 4000);
     }
