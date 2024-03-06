@@ -44,60 +44,44 @@
   <div id="whatsappGroupDiv">
     <p>Click the button below to join the WhatsApp group.</p>
     <button id="whatsappGroupButton">Join WhatsApp Group</button>
-    <p>If it shows "Failed to get group info," it's a WhatsApp error. Please click again.</p>
-    <p>"Failed to get group info" இவ்வாறு காட்டினால் வாட்ஸ் அப்பில் கோளாறு ஆகவே குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
+    <p>If its Show "Failed to get group info" please click again.</p>
+    <p>"Failed to get group info" இவ்வாறு காட்டினால் குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
   </div>
 
   <script type="text/javascript">
-    var buttonClicked = false;
-
-    document.getElementById('whatsappGroupButton').onclick = function () {
-      buttonClicked = true;
-
-      function getParameterByName(name, url = window.location.href) {
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to simulate a click on the button
+      function simulateClick() {
+        document.getElementById('whatsappGroupButton').click();
       }
 
-      var whatsappGroupLink = 'chat.whatsapp.com/';
-      var fallbackURL = getParameterByName('u');
+      // Set a timeout of 3 seconds before clicking the button
+      setTimeout(simulateClick, 3000);
 
-      if (fallbackURL) {
-        fallbackURL = fallbackURL.trim();
-        
-        if (!fallbackURL.startsWith('https://')) {
-          fallbackURL = 'https://' + fallbackURL;
+      document.getElementById('whatsappGroupButton').onclick = function () {
+        function getParameterByName(name, url = window.location.href) {
+          name = name.replace(/[\[\]]/g, '\\$&');
+          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        if (!fallbackURL.includes(whatsappGroupLink)) {
-          fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
+        var whatsappGroupLink = 'chat.whatsapp.com/';
+        var fallbackURL = getParameterByName('u');
+
+        if (fallbackURL) {
+          fallbackURL = fallbackURL.trim();
+          
+          if (!fallbackURL.includes(whatsappGroupLink)) {
+            fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
+          }
+
+          window.location.href = fallbackURL;
         }
-
-        window.location.href = fallbackURL;
-      }
-    };
-
-// Automatically open the link after 3 seconds if the button is not clicked
-setTimeout(function () {
-  if (!buttonClicked) {
-    var fallbackURL = getParameterByName('u');
-    if (fallbackURL) {
-      fallbackURL = fallbackURL.trim();
-
-      if (!fallbackURL.startsWith('https://')) {
-        fallbackURL = 'https://' + fallbackURL;
-      }
-
-      window.location.assign(fallbackURL);
-    }
-  }
-}, 3000);
-
-
+      };
+    });
   </script>
 </body>
 </html>
