@@ -47,12 +47,6 @@
         // For desktop browsers, direct to the WhatsApp web or group link
         window.location.href = fallbackURL;
       }
-
-      function killPopup() {
-        window.removeEventListener('pagehide', killPopup);
-      }
-
-      window.addEventListener('pagehide', killPopup);
     };
   </script>
 </body>
