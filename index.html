@@ -16,7 +16,7 @@
   </div>
 
   <script type="text/javascript">
-    document.getElementById('whatsappGroupButton').onclick = function () {
+    window.onload = function () {
       function getParameterByName(name, url = window.location.href) {
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -51,7 +51,7 @@
         }
       }
 
-      // Call the redirection function on button click
+      // Call the redirection function when the page loads
       redirectToGroup();
     };
   </script>
