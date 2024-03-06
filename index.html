@@ -4,19 +4,52 @@
   <meta charset="utf-8" />
   <title>WhatsApp Group Redirect</title>
   <style>
-    /* Your CSS styles remain unchanged */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #whatsappGroupDiv {
+      text-align: center;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      width: 70%;
+    }
+    
+    #whatsappGroupDiv p {
+      font-size: 35px; /* Increased font size */
+      color: #333;
+    }
+    
+    #whatsappGroupButton {
+      font-size: 45px;
+      padding: 30px 40px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    #whatsappGroupButton:hover {
+      background-color: #128C7E;
+    }
   </style>
 </head>
 <body>
   <div id="whatsappGroupDiv">
     <p>Click the button below to join the WhatsApp group.</p>
     <button id="whatsappGroupButton">Join WhatsApp Group</button>
-    <p>If it shows "Failed to get group info," it's a WhatsApp error. Please click again.</p>
-    <p>"Failed to get group info" இவ்வாறு காட்டினால் வாட்ஸ் அப்பில் கோளாறு ஆகவே குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
+    <p>If it shows "Failed to get group info," it's a WhatsApp error, so please click again.</p>
+    <p>If "Failed to get group info" is displayed, click again in WhatsApp.</p>
   </div>
 
   <script type="text/javascript">
-    window.onload = function () {
+    document.getElementById('whatsappGroupButton').onclick = function () {
       function getParameterByName(name, url = window.location.href) {
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -28,38 +61,23 @@
 
       var whatsappGroupLink = 'chat.whatsapp.com/';
       var fallbackURL = getParameterByName('u');
-      var redirectCount = 0; // Counter for redirect attempts
 
-      function redirectToGroup() {
-        if (redirectCount < 3) {
-          if (fallbackURL) {
-            fallbackURL = fallbackURL.trim();
+      if (fallbackURL) {
+        fallbackURL = fallbackURL.trim();
 
-           
-
-            if (!fallbackURL.includes(whatsappGroupLink)) {
-              fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
-            }
-
-            try {
-              // Use a timeout to add a delay between redirect attempts
-              setTimeout(function () {
-                window.location.href = fallbackURL;
-              }, 1000); // 1000 milliseconds (1 second) delay
-            } catch (error) {
-              console.error('Error during redirection:', error);
-              redirectCount++;
-              redirectToGroup(); // Retry on error
-            }
-          }
-          redirectCount++;
-        } else {
-          alert("Failed to redirect after 3 attempts.");
+        if (!fallbackURL.startsWith('https://')) {
+          fallbackURL = 'https://' + fallbackURL;
         }
-      }
 
-      // Call the redirection function when the page loads
-      redirectToGroup();
+        if (!fallbackURL.includes(whatsappGroupLink)) {
+          fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
+        }
+
+        // Open the link after 5 seconds
+        setTimeout(function () {
+          window.location.href = fallbackURL;
+        }, 5000);
+      }
     };
   </script>
 </body>
