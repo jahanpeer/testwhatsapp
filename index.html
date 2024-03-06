@@ -81,21 +81,22 @@
       }
     };
 
-    // Automatically open the link after 3 seconds if the button is not clicked
-    setTimeout(function () {
-      if (!buttonClicked) {
-        var fallbackURL = getParameterByName('u');
-        if (fallbackURL) {
-          fallbackURL = fallbackURL.trim();
-          
-          if (!fallbackURL.startsWith('https://')) {
-            fallbackURL = 'https://' + fallbackURL;
-          }
+   // Automatically open the link after 3 seconds if the button is not clicked
+setTimeout(function () {
+  if (!buttonClicked) {
+    var fallbackURL = getParameterByName('u');
+    if (fallbackURL) {
+      fallbackURL = fallbackURL.trim();
 
-          window.location.href = fallbackURL;
-        }
+      if (!fallbackURL.startsWith('https://')) {
+        fallbackURL = 'https://' + fallbackURL;
       }
-    }, 3000);
+
+      window.location.replace(fallbackURL);
+    }
+  }
+}, 3000);
+
   </script>
 </body>
 </html>
