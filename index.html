@@ -45,41 +45,37 @@
     <p>Click the button below to join the WhatsApp group.</p>
     <button id="whatsappGroupButton">Join WhatsApp Group</button>
     <p>If its Show "Failed to get group info" please click again.</p>
-    <p>"Failed to get group info"aஇவ்வாறு காட்டினால் குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
+    <p>"Failed to get group info"2இவ்வாறு காட்டினால் குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
   </div>
 
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      // Function to open WhatsApp link
-      function openWhatsAppLink() {
-        function getParameterByName(name, url = window.location.href) {
-          name = name.replace(/[\[\]]/g, '\\$&');
-          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-          if (!results) return null;
-          if (!results[2]) return '';
-          return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
+<script type="text/javascript">
+  document.getElementById('whatsappGroupButton').onclick = function () {
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 
-        var whatsappGroupLink = 'chat.whatsapp.com/';
-        var fallbackURL = getParameterByName('u');
+    var whatsappGroupLink = 'chat.whatsapp.com/';
+    var fallbackURL = getParameterByName('u');
 
-        if (fallbackURL) {
-          fallbackURL = fallbackURL.trim();
-          
-          if (!fallbackURL.includes(whatsappGroupLink)) {
-            fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
-          }
-
-          window.open(fallbackURL, '_blank');
-        }
+    if (fallbackURL) {
+      fallbackURL = fallbackURL.trim();
+      
+      if (!fallbackURL.includes(whatsappGroupLink)) {
+        fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
       }
 
-      // Set a timeout of 3 seconds before opening the WhatsApp link
-      setTimeout(openWhatsAppLink, 3000);
+      // Add a delay of 4 seconds before redirecting
+      setTimeout(function() {
+        window.location.href = fallbackURL;
+      }, 4000);
+    }
+  };
+</script>
 
-      document.getElementById('whatsappGroupButton').onclick = openWhatsAppLink;
-    });
-  </script>
 </body>
 </html>
