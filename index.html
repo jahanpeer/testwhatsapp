@@ -73,16 +73,10 @@
         fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
       }
 
-      // Log the constructed URL
-      console.log('Constructed URL:', fallbackURL);
-
-      // Open the link after 5 seconds
+      // Open the fallbackURL after a delay of 3000 milliseconds (3 seconds)
       setTimeout(function () {
         window.location.href = fallbackURL;
-      }, 5000);
-    } else {
-      // Log an error if 'u' parameter is missing
-      console.error('Error: Parameter "u" is missing.');
+      }, 3000);
     }
   };
 </script>
