@@ -28,7 +28,7 @@
         return;
       }
 
-      var androidApp = `intent://${fallbackURL}#Intent;package=com.whatsapp;scheme=https;end`;
+      var androidApp = `intent://send/${fallbackURL}#Intent;package=com.whatsapp;scheme=https;end`;
       var iosApp = fallbackURL; // For iOS, use the https link which will be redirected by the system
 
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
