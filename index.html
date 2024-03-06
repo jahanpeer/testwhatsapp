@@ -49,36 +49,40 @@
   </div>
 
   <script type="text/javascript">
-    document.getElementById('whatsappGroupButton').onclick = function () {
-      function getParameterByName(name, url = window.location.href) {
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  document.getElementById('whatsappGroupButton').onclick = function () {
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    var whatsappGroupLink = 'chat.whatsapp.com/';
+    var fallbackURL = getParameterByName('u');
+
+    if (fallbackURL) {
+      fallbackURL = fallbackURL.trim();
+
+      if (!fallbackURL.startsWith('https://')) {
+        fallbackURL = 'https://' + fallbackURL;
       }
 
-      var whatsappGroupLink = 'chat.whatsapp.com/';
-      var fallbackURL = getParameterByName('u');
-
-      if (fallbackURL) {
-        fallbackURL = fallbackURL.trim();
-
-        if (!fallbackURL.startsWith('https://')) {
-          fallbackURL = 'https://' + fallbackURL;
-        }
-
-        if (!fallbackURL.includes(whatsappGroupLink)) {
-          fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
-        }
-
-        // Open the link after 5 seconds
-        setTimeout(function () {
-          window.location.href = fallbackURL;
-        }, 5000);
+      if (!fallbackURL.includes(whatsappGroupLink)) {
+        fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
       }
-    };
-  </script>
-</body>
-</html>
+
+      // Log the constructed URL
+      console.log('Constructed URL:', fallbackURL);
+
+      // Open the link after 5 seconds
+      setTimeout(function () {
+        window.location.href = fallbackURL;
+      }, 5000);
+    } else {
+      // Log an error if 'u' parameter is missing
+      console.error('Error: Parameter "u" is missing.');
+    }
+  };
+</script>
