@@ -28,7 +28,7 @@
         return;
       }
 
-      var universalLink = `https://wa.me/${fallbackURL}`;
+      var universalLink = `https://${fallbackURL}`;
       var iosApp = fallbackURL; // For iOS, use the https link which will be redirected by the system
 
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
