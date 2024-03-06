@@ -45,20 +45,13 @@
     <p>Click the button below to join the WhatsApp group.</p>
     <button id="whatsappGroupButton">Join WhatsApp Group</button>
     <p>If its Show "Failed to get group info" please click again.</p>
-    <p>"Failed to get group info" இவ்வாறு காட்டினால் குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
+    <p>"Failed to get group info"aஇவ்வாறு காட்டினால் குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
   </div>
 
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
-      // Function to simulate a click on the button
-      function simulateClick() {
-        document.getElementById('whatsappGroupButton').click();
-      }
-
-      // Set a timeout of 3 seconds before clicking the button
-      setTimeout(simulateClick, 3000);
-
-      document.getElementById('whatsappGroupButton').onclick = function () {
+      // Function to open WhatsApp link
+      function openWhatsAppLink() {
         function getParameterByName(name, url = window.location.href) {
           name = name.replace(/[\[\]]/g, '\\$&');
           var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -78,9 +71,14 @@
             fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
           }
 
-          window.location.href = fallbackURL;
+          window.open(fallbackURL, '_blank');
         }
-      };
+      }
+
+      // Set a timeout of 3 seconds before opening the WhatsApp link
+      setTimeout(openWhatsAppLink, 3000);
+
+      document.getElementById('whatsappGroupButton').onclick = openWhatsAppLink;
     });
   </script>
 </body>
