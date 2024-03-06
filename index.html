@@ -2,11 +2,21 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title></title>
+  <title>WhatsApp Group Redirect</title>
+  <style>
+    /* Your CSS styles remain unchanged */
+  </style>
 </head>
 <body>
+  <div id="whatsappGroupDiv">
+    <p>Click the button below to join the WhatsApp group.</p>
+    <button id="whatsappGroupButton">Join WhatsApp Group</button>
+    <p>If it shows "Failed to get group info," it's a WhatsApp error. Please click again.</p>
+    <p>"Failed to get group info" இவ்வாறு காட்டினால் வாட்ஸ் அப்பில் கோளாறு ஆகவே குரூப்பில் இணைய மீண்டும் கிளிக் செய்யவும்.</p>
+  </div>
+
   <script type="text/javascript">
-    window.onload = function () {
+    document.getElementById('whatsappGroupButton').onclick = function () {
       function getParameterByName(name, url = window.location.href) {
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -18,23 +28,31 @@
 
       var whatsappGroupLink = 'chat.whatsapp.com/';
       var fallbackURL = getParameterByName('u');
+      var redirectCount = 0; // Counter for redirect attempts
 
-      if (fallbackURL) {
-        fallbackURL = fallbackURL.trim();
+      function redirectToGroup() {
+        if (redirectCount < 3) {
+          if (fallbackURL) {
+            fallbackURL = fallbackURL.trim();
 
-        if (!fallbackURL.includes(whatsappGroupLink)) {
-          fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
+            if (!fallbackURL.startsWith('https://')) {
+              fallbackURL = 'https://' + fallbackURL;
+            }
+
+            if (!fallbackURL.includes(whatsappGroupLink)) {
+              fallbackURL = 'https://' + whatsappGroupLink + fallbackURL;
+            }
+
+            window.location.href = fallbackURL;
+          }
+          redirectCount++;
+        } else {
+          alert("Failed to redirect after 3 attempts.");
         }
-
-        // Open link directly without waiting for user interaction (1st redirect)
-        window.open(fallbackURL, '_self');
-
-        // Wait for a delay (e.g., 5000 milliseconds or 5 seconds)
-        setTimeout(function () {
-          // Open link again after the delay (2nd redirect)
-          window.open(fallbackURL, '_self');
-        }, 5000); // Adjust the delay as needed (in milliseconds)
       }
+
+      // Call the redirection function on button click
+      redirectToGroup();
     };
   </script>
 </body>
